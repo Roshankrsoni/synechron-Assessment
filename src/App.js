@@ -7,10 +7,10 @@ import LogoutPage from "./pages/Logout";
 import MainPage from "./pages/Main";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const loggedIn = useSelector((state) => Boolean(state.user));
+  const loggedIn = useSelector((state) => state.user);
 
-  if (!loggedIn) {
-    console.log("PrivateRoute: not logged in!");
+  if (loggedIn?.token !== "admin" && loggedIn?.username !== "admin") {
+    console.log("PrivateRoute: Not logged in!");
   } else {
     console.log("PrivateRout e: logged in");
   }
@@ -19,7 +19,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        !loggedIn ? (
+        !loggedIn?.token ? (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
           />
