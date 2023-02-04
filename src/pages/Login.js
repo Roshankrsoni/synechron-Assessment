@@ -18,24 +18,30 @@ import {
 } from "@chakra-ui/react";
 
 const Login = ({ history }) => {
-  const [userName, setUserName] = useState("admin");
+  const [email, setemail] = useState("admin@gmail.com");
   const [password, setPassword] = useState("admin");
+  const [logging, setLogging] = useState(false);
 
   const dispatch = useDispatch();
 
   const doLogin = (e) => {
+    setLogging(true);
     e.preventDefault();
-    console.log("Logging in...", [userName, password]);
+    console.log("Logging in...", [email, password]);
     dispatch(
       userLogin({
-        userName,
+        email,
         password
       })
     )
       .then(() => {
+        setLogging(false);
         history.push("/main");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setLogging(false);
+        console.log(err);
+      });
   };
 
   return (
@@ -64,8 +70,8 @@ const Login = ({ history }) => {
               <FormLabel>Email address</FormLabel>
               <Input
                 type="email"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                value={email}
+                onChange={(e) => setemail(e.target.value)}
               />
             </FormControl>
             <FormControl id="password">
@@ -93,7 +99,7 @@ const Login = ({ history }) => {
                 }}
                 onClick={doLogin}
               >
-                Sign in
+                {logging ? "logging...." : "Sign in"}
               </Button>
             </Stack>
           </Stack>

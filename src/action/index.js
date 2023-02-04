@@ -1,12 +1,12 @@
 import { timeoutPromise } from "../utils";
 
-export const userLogin = ({ userName, password }) => (dispatch) => {
+export const userLogin = ({ email, password }) => (dispatch) => {
   return timeoutPromise(1000)
     .then(() =>
       dispatch({
         type: "USER_LOGIN",
         payload: {
-          username: userName,
+          email,
           token: password
         }
       })
