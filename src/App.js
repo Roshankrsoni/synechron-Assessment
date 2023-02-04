@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   if (!loggedIn) {
     console.log("PrivateRoute: not logged in!");
   } else {
-    console.log("PrivateRoute: logged in");
+    console.log("PrivateRout e: logged in");
   }
 
   return (
